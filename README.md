@@ -1,10 +1,12 @@
 #GL.iNet + 3310 LCD#
-================
+
+
 ##The hardware##
 You basically connect the 3310 LCD pins directly to the GPIO pins of the GL.iNet. I hardwired the CE pin to GND and the led/backlight pin to 3.3V so I needed just 4 GPIO's. You could add a transistor and connect the led trough the 5th GPIO and change the brightness using PWM, but I did not do that.
 http://imgur.com/a/mL6XN
 http://imgur.com/a/PmQAw
 I get 18 hours of battery life out of this 5200mAh USB battery pack. Quite impressive, with the backlight on and WiFi enabled att the time :)
+
 ##How to run this##
 - Get a GL.iNet
 - Flash a stock OpenWRT image on it

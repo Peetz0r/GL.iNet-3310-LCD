@@ -1,0 +1,112 @@
+<!doctype html>
+
+<!-- Get the Python sourcecode at http://3310.haas-en-berg.nl/source -->
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>GL.iNet + 3310 LCD</title>
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+			* {
+				margin: 0;
+				padding: 0;
+				border: 0;
+			}
+			button {
+				width: 1.1904%;
+				display: inline;
+				float: left;
+				height: 100%;
+				border: 1px solid #ccc;
+				background-color: #fff;
+			}
+			button.dark {
+				background-color: #000;
+			}
+			div {
+				height: 2.08333%;
+			}
+		</style>
+	</head>
+	<body>
+		<script>
+			var mousedown = false;
+			document.onmousedown = function() {
+				mousedown = true;
+			}
+			document.onmouseup = function() {
+				mousedown = false;
+			}
+
+			for(a = 0; a < 6; a++) {
+				for(b = 0; b < 8; b++) {
+					var row = document.createElement("div");
+					for(c = 0; c < 84; c++) {
+						var pixel = document.createElement("button");
+						pixel.id = c+"-"+a+"-"+b;
+						pixel.onmousedown = function() {
+							if(this.className == "dark") {
+								this.className = "";
+							} else {
+								this.className = "dark";
+							}
+
+							var pos = this.id.split("-");
+							var data = 0;
+
+							for(i = 0; i < 8; i++) {
+								if(document.getElementById(pos[0]+"-"+pos[1]+"-"+i).className == "dark") {
+									data += Math.pow(2, i);
+								}
+							}
+
+							xhr = new XMLHttpRequest();
+							xhr.open("post", "/");
+							xhr.send(JSON.stringify([parseInt(pos[0]), parseInt(pos[1]), data]));
+						}
+						/*
+						has performance issues, most likely caused by /sys/clas/gpio slowness
+						pixel.onmouseover = function() {
+							if(mousedown) {
+								this.onmousedown();
+							}
+						}
+						*/
+						row.appendChild(pixel);
+					}
+					document.body.appendChild(row);
+				}
+			}
+
+			function update() {
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function() {
+					if(this.readyState == 4 && this.status == 200) {
+						data = JSON.parse(this.responseText);
+						for(i in data) {
+							for(j in data[i]) {
+								for(k = 0; k < 8; k++) {
+									var button = document.getElementById(i+"-"+j+"-"+k);
+									if(data[i][j] >> k & 1) {
+										button.className = "dark";
+									} else {
+										button.className = "";
+									}
+								}
+							}
+						}
+					}
+				}
+				xhr.open("get", "/screen");
+				xhr.send();
+			}
+
+			update();
+			setInterval(update, 100);
+		</script>
+	</body>
+</html>

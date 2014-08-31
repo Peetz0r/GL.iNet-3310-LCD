@@ -22,3 +22,4 @@ I get 18 hours of battery life out of this 5200mAh USB battery pack. Quite impre
 - PROFIT!
 
 See it live at http://3310.haas-en-berg.nl/ (not 24/7, but close enough)
+(currently down because of wifi problems)

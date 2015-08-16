@@ -6,7 +6,7 @@ You basically connect the 3310 LCD pins directly to the GPIO pins of the GL.iNet
 - http://imgur.com/a/mL6XN
 - http://imgur.com/a/PmQAw
 
-I get 18 hours of battery life out of this 5200mAh USB battery pack. Quite impressive, with the backlight on and WiFi enabled att the time :)
+I get 18 hours of battery life out of this 5200mAh USB battery pack. Quite impressive, with the backlight on and WiFi enabled all the time :)
 
 ##How to run this##
 - Get a GL.iNet

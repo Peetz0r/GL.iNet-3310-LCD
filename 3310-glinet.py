@@ -72,7 +72,7 @@ def main():
 					screen[j][i] = data
 					lcd_data(data)
 
-	server = BaseHTTPServer.HTTPServer(('', 80), WebHandler)
+	server = BaseHTTPServer.HTTPServer(('', 80), WebHandler) # Best port ever
 	logging.info('started httpserver')
 	server.serve_forever()
 
